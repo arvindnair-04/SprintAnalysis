@@ -1,21 +1,21 @@
 
-# 🏃‍♂️ 100m Sprint Analysis – Paris 2024 Olympics
+# 100m Sprint Analysis – Paris 2024 Olympics
 
 This project analyzes elite sprinters from the Paris 2024 Olympic 100m Final using 3D skeleton-based pose data. Using biomechanical features derived from pose estimation, it calculates per-athlete metrics such as **step length**, **step frequency**, **ground contact time**, **air time**, and **speed**.
 
 ---
 
-## 🔍 Overview
+## Overview
 
 The project:
 - Uses midhip-to-ankle Z-axis distance to detect leg peak extension.
-- Classifies air vs. contact phases per leg using threshold-based logic.
+- Analysis of air vs. contact phases per leg using threshold-based logic.
 - Computes physical performance metrics and visualizes key events.
 - Compares metrics across 8 elite athletes.
 
 ---
 
-## 🧠 Methodology
+## Methodology
 
 ### 1. Pose Data Preprocessing
 - Input: CSV with 3D coordinates for 33 landmarks.
@@ -30,7 +30,7 @@ diff2 = |midhip_z - left_ankle_z|
 - Normalized and smoothed using Savitzky–Golay Filter.
 - Peaks where smoothed difference exceeds a threshold are labeled as leg contact initiation.
 
-### 3. Classification of Contact vs. Air
+### 3. Analysis of Contact vs. Air
 - Frames after peak until drop below threshold → **Contact phase**
 - Intervals between opposite leg’s contact → **Air phase**
 - Both legs 0 → **Air**
@@ -45,7 +45,7 @@ diff2 = |midhip_z - left_ankle_z|
 
 ---
 
-## 👟 Athletes Analyzed
+## Athletes Analyzed
 
 1. Noah Lyles  
 2. Kishane Thompson  
@@ -58,7 +58,7 @@ diff2 = |midhip_z - left_ankle_z|
 
 ---
 
-## 📊 Evaluation Metrics (Threshold Classification Accuracy)
+## Evaluation Metrics (Threshold Analysis Accuracy)
 
 | Athlete             | Accuracy L | Accuracy R | Precision L | Precision R | Recall L | Recall R |
 |---------------------|------------|------------|-------------|-------------|----------|----------|
@@ -73,7 +73,7 @@ diff2 = |midhip_z - left_ankle_z|
 
 ---
 
-## 📈 Athlete Performance Summary
+## Athlete Performance Summary
 
 | Athlete           | Step Length (m) | Contact Time (s) | Air Time (s) | Step Frequency (Hz) |
 |-------------------|------------------|-------------------|---------------|----------------------|
@@ -88,7 +88,7 @@ diff2 = |midhip_z - left_ankle_z|
 
 ---
 
-## 📊 Visual Outputs
+## Visual Outputs
 
 - **Leg state plots** (red = contact, blue = air)
 - **Air vs Contact time graphs** (Predicted and Actual)
@@ -97,7 +97,15 @@ diff2 = |midhip_z - left_ankle_z|
 
 ---
 
-## 📦 Dependencies
+## How to use the code
+
+- `numpy`, `pandas`, `scipy`, `matplotlib`, `plotly`, `cv2`
+- `scipy.signal.savgol_filter`
+- Custom analysis class: `SkeletonAnalyzerFineTune1`
+
+---
+
+## Dependencies
 
 - `numpy`, `pandas`, `scipy`, `matplotlib`, `plotly`, `cv2`
 - `scipy.signal.savgol_filter`
