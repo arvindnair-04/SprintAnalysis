@@ -90,38 +90,39 @@ diff2 = |midhip_z - left_ankle_z|
 
 ## Visual Outputs
 
-## 📊 Classified Thresholds Visualization
+## Classified Thresholds Visualization
 ![Classify Thresholds](img/ClassifyThresholds.png)
 
-## 🟩 Frame-by-Frame Threshold Classification
+## Frame-by-Frame Threshold Classification
 ![Frame-by-Frame Threshold](img/FrameByFrameThreshold.png)
 
-## 🟠 Air vs Contact Duration - Actual
+## Air vs Contact Duration - Actual
 ![Actual Air vs Contact](img/ActualAirVSContact.png)
 
-## 🔵 Air vs Contact Duration - Predicted
+## Air vs Contact Duration - Predicted
 ![Predicted Air vs Contact](img/PredictedAirVSContact.png)
 
-## 🔁 Step Rate - Actual
+## Step Rate - Actual
 ![Actual Step Rate](img/ActualStepRate.png)
 
-## 🔁 Step Rate - Predicted
+## Step Rate - Predicted
 ![Predicted Step Rate](img/PredictedStepRate.png)
 
-## 📈 Step Length Over Time
+## Step Length Over Time
 ![Step Length](img/StepLength.png)
 
-## 🦶 Step Difference per Frame
+## Step Difference per Frame
 ![Step Difference](img/StepDiffPerFrame.png)
 
-## 🚀 Speed Over Time
+## Speed Over Time
 ![Speed](img/Speed.png)
 
 ---
 
 ## How to use the code
 
-- 
+- import all the libraies required
+- Use the custom class, SkeletonAnalyzerFineTune1, and call all the function required 
 
 ---
 
