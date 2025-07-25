@@ -1,7 +1,7 @@
 
 # 🏃‍♂️ 100m Sprint Analysis – Paris 2024 Olympics
 
-This project analyzes elite sprinters from the Paris 2024 Olympic 100m Final using 2D skeleton-based pose data. Using biomechanical features derived from pose estimation, it calculates per-athlete metrics such as **step length**, **step frequency**, **ground contact time**, **air time**, and **speed**.
+This project analyzes elite sprinters from the Paris 2024 Olympic 100m Final using 3D skeleton-based pose data. Using biomechanical features derived from pose estimation, it calculates per-athlete metrics such as **step length**, **step frequency**, **ground contact time**, **air time**, and **speed**.
 
 ---
 
