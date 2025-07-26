@@ -23,7 +23,7 @@ This approach helps us understand sprinting not just by watching video but by tu
 ### 1. Pose Data Preprocessing
 Before we can analyze how an athlete moves, we need to clean and prepare the data that describes their body positions.
 - Input: We start with a .csv file that contains the 3D coordinates (X, Y, Z) for 33 body landmarks (like shoulders, hips, knees, ankles, etc.) for every frame of the video. This data is usually generated from pose estimation tools like MediaPipe.
-- Filling in Gaps: Sometimes, the pose detection model misses a joint in a few frames, which leaves behind missing data. We fix this by using linear interpolation—essentially guessing what the missing values would be by connecting the dots smoothly between the known values.
+- Filling in Gaps: Sometimes, the pose detection model misses a joint in a few frames, which leaves behind missing data. We fix this by using linear interpolation, essentially guessing what the missing values would be by connecting the dots smoothly between the known values.
 - Removing Outliers: If a body point suddenly jumps to an unrealistic position (like a knee flipping across the screen), we identify and correct that using a filtering technique. This keeps the data smooth and realistic across all frames.
 This preprocessing step ensures that the skeleton data is clean, continuous, and reliable for accurate analysis in the next stages.
 
