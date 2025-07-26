@@ -68,10 +68,28 @@ Very brief or no double-leg contact (except at the start)
 This phase analysis is the foundation for calculating advanced metrics like step duration, stride rhythm, and contact efficiency.
 
 ### 4. Metric Computation
-- **Step Length**: Distance between ankles during max air frame.
-- **Step Rate**: Time between alternate leg contact events.
-- **Air/Contact Times**: Counted in frames then scaled using FPS.
-- **Speed**: `step length × step rate`
+Once we know when each foot is in contact or in the air, we can calculate powerful metrics that describe the athlete’s running performance.
+
+#### Key Metrics Explained
+- Step Length
+Measures how far the athlete travels in a single step.
+➤ We calculate this by finding the maximum distance between the two ankles during each air phase—when both feet are off the ground.
+
+- Step Rate (Frequency)
+Measures how quickly the athlete steps.
+➤ This is calculated as the time between alternate foot contacts—for example, from when the left foot lands to when the right foot lands next.
+➤ Step rate is measured in steps per second (Hz).
+
+- Air Time & Ground Contact Time
+Measures how long each foot spends in the air and on the ground.
+➤ We count the number of frames spent in each phase and convert it to seconds using the video frame rate (FPS).
+➤ This gives us precise air and contact durations for every stride.
+
+- Speed
+Measures how fast the athlete is running.
+➤ Calculated by multiplying step length by step rate:
+**Speed = Step Length × Step Rate**
+➤ This gives speed in meters per second (m/s) for each stride.
 
 ---
 
@@ -151,8 +169,26 @@ This phase analysis is the foundation for calculating advanced metrics like step
 
 ## How to use the code
 
-- import all the libraies required
-- Use the custom class, SkeletonAnalyzerFineTune1, and call all the function required 
+Follow these simple steps to run the analysis:
+
+- Import the Required Libraries
+Make sure all necessary Python libraries (like pandas, numpy, matplotlib, plotly, etc.) are imported at the top of your script or notebook.
+
+- Use the Custom Class
+The main functionality is handled by a class called SkeletonAnalyzerFineTune1.
+To use it:
+
+- Create an instance of the class by passing in your pose data file.
+Call each method step-by-step to preprocess, analyze, visualize, and extract metrics.
+Example:
+analyzer = SkeletonAnalyzerFineTune1("your_pose_data.csv")
+analyzer.load_and_standardize()
+analyzer.rotate_coordinates()
+analyzer.compute_differences()
+...
+
+- View Outputs and Visualizations
+The code will produce visual plots, accuracy results, and step-by-step performance metrics for each athlete.
 
 ---
 
