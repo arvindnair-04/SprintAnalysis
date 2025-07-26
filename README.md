@@ -2,7 +2,7 @@
 # 100m Sprint Analysis – Paris 2024 Olympics
 
 This project analyzes elite sprinters from the **Paris 2024 Olympic 100m Final** using cutting edge video based biomechanics. With just a video of the race, we extract 3D skeleton data and calculate detailed performance metrics for each athlete, no sensors or wearables needed.
-We start with a high quality race video and use AI powered pose estimation tools (like MediaPipe) to track the movement of each athlete. These tools detect key joints (like shoulders, hips, knees, and ankles) in every video frame and generate 3D skeleton data, a simplified stick figure version of the athlete’s motion.
+We start with a high quality race video and use AI powered pose estimation tools to track the movement of each athlete. These tools detect key joints (like shoulders, hips, knees, and ankles) in every video frame and generate 3D skeleton data, a simplified stick figure version of the athlete’s motion.
 
 ---
 
@@ -22,7 +22,7 @@ This approach helps us understand sprinting not just by watching video but by tu
 
 ### 1. Pose Data Preprocessing
 Before we can analyze how an athlete moves, we need to clean and prepare the data that describes their body positions.
-- Input: We start with a .csv file that contains the 3D coordinates (X, Y, Z) for 33 body landmarks (like shoulders, hips, knees, ankles, etc.) for every frame of the video. This data is usually generated from pose estimation tools like MediaPipe.
+- Input: We start with a .csv file that contains the 3D coordinates (X, Y, Z) for 33 body landmarks (like shoulders, hips, knees, ankles, etc.) for every frame of the video. This data is usually generated from pose estimation tools.
 - Filling in Gaps: Sometimes, the pose detection model misses a joint in a few frames, which leaves behind missing data. We fix this by using linear interpolation, essentially guessing what the missing values would be by connecting the dots smoothly between the known values.
 - Removing Outliers: If a body point suddenly jumps to an unrealistic position (like a knee flipping across the screen), we identify and correct that using a filtering technique. This keeps the data smooth and realistic across all frames.
 This preprocessing step ensures that the skeleton data is clean, continuous, and reliable for accurate analysis in the next stages.
@@ -164,38 +164,6 @@ Measures how fast the athlete is running.
 
 ## Speed Over Time
 ![Speed](img/Speed.png)
-
----
-
-## How to use the code
-
-Follow these simple steps to run the analysis:
-
-- Import the Required Libraries:
-Make sure all necessary Python libraries (like pandas, numpy, matplotlib, plotly, etc.) are imported at the top of your script or notebook.
-
-- Use the Custom Class:
-The main functionality is handled by a class called SkeletonAnalyzerFineTune1.
-To use it:
-
-- Create an instance of the class by passing in your pose data file:
-Call each method step by step to preprocess, analyze, visualize, and extract metrics.
-Example:
-analyzer = SkeletonAnalyzerFineTune1("your_pose_data.csv")
-analyzer.load_and_standardize()
-analyzer.rotate_coordinates()
-analyzer.compute_differences()
-...
-
-### Note on Thresholds
-> **Note:**  
-> The threshold values used for detecting contact and air phases are sensitive to the scale of the video.  
-> If your camera is positioned closer or farther from the athlete compared to the original footage,  
-> you may need to **change the thresholds** accordingly to get accurate results.  
-> For example, a close-up video may produce larger leg extension values than a wide-angle shot.
-
-- View Outputs and Visualizations:
-The code will produce visual plots, accuracy results, and step by step performance metrics for each athlete.
 
 ---
 
