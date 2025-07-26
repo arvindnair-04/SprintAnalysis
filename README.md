@@ -1,8 +1,8 @@
 
 # 100m Sprint Analysis – Paris 2024 Olympics
 
-This project analyzes elite sprinters from the **Paris 2024 Olympic 100m Final** using cutting-edge video-based biomechanics. With just a video of the race, we extract 3D skeleton data and calculate detailed performance metrics for each athlete—no sensors or wearables needed.
-We start with a high-quality race video and use AI-powered pose estimation tools (like MediaPipe) to track the movement of each athlete. These tools detect key joints (like shoulders, hips, knees, and ankles) in every video frame and generate 3D skeleton data—a simplified stick-figure version of the athlete’s motion.
+This project analyzes elite sprinters from the **Paris 2024 Olympic 100m Final** using cutting edge video based biomechanics. With just a video of the race, we extract 3D skeleton data and calculate detailed performance metrics for each athlete, no sensors or wearables needed.
+We start with a high quality race video and use AI powered pose estimation tools (like MediaPipe) to track the movement of each athlete. These tools detect key joints (like shoulders, hips, knees, and ankles) in every video frame and generate 3D skeleton data, a simplified stick figure version of the athlete’s motion.
 
 ---
 
@@ -10,11 +10,11 @@ We start with a high-quality race video and use AI-powered pose estimation tools
 
 This project breaks down how sprinters move by analyzing their leg movements step by step. Here's what it does:
 - Tracks Leg Movement: Measures how far each ankle moves away from the hip (along the vertical Z-axis) to find when the leg is fully extended during a stride.
-- Detects Ground Contact vs. Air Time: Figures out when each leg is touching the ground and when it’s in the air, using a smart rule-based method.
+- Detects Ground Contact vs. Air Time: Figures out when each leg is touching the ground and when it’s in the air, using a smart rule based method.
 - Calculates Key Metrics: Calculates important performance numbers like step length, step frequency (how fast they step), air time, and speed.
 - Compares Multiple Athletes: Runs this analysis on 8 different Olympic sprinters to compare their running styles and efficiency.
 
-This approach helps us understand sprinting not just by watching video—but by turning it into real, measurable science.
+This approach helps us understand sprinting not just by watching video but by turning it into real, measurable science.
 
 ---
 
@@ -30,40 +30,40 @@ This preprocessing step ensures that the skeleton data is clean, continuous, and
 ### 2. Smoothing & Peak Detection
 After cleaning the pose data, we analyze how each leg moves vertically by comparing the hip and ankle positions. This helps us understand when a foot is about to make contact with the ground.
 
-#### Step-by-Step Explanation:
+#### Step by Step Explanation:
 - For every frame, we calculate two values:
     - diff1 = |midhip_z - right_ankle_z| → This shows how far the right ankle is from the hips (vertically).
     - diff2 = |midhip_z - left_ankle_z| → Same, but for the left ankle.
-These values go up and down as the leg moves during running—high when the foot is in the air, low when it’s closer to the ground.
+These values go up and down as the leg moves during running, high when the foot is in contact and low when it is in air.
 
 #### Smoothing the Signals:
-Real-world data can be noisy. To remove random spikes and smooth the motion, we apply a Savitzky–Golay filter.
+Real world data can be noisy. To remove random spikes and smooth the motion, we apply a Savitzky–Golay filter.
 This filter helps us keep the important shape of the movement while getting rid of jittery points.
 
 #### Detecting When a Foot Hits the Ground:
 Once the signals are smoothed, we look for peaks—points where the ankle is moving downward and is close to full extension.
 If a peak is high enough (above a certain threshold), it likely marks the moment the foot is about to make contact with the ground.
 These peaks are labeled as the start of the contact phase for that leg.
-This process lets us identify when each leg touches down in the race, using only joint distance and smart signal analysis—no extra equipment needed!
+This process lets us identify when each leg touches down in the race, using only joint distance and smart signal analysis.
 
 ### 3. Analysis of Contact vs. Air
 Once we've identified when each leg starts to make contact with the ground, we can now determine whether the athlete is in the contact phase or airborne phase during each moment of the run.
 
 - How It Works:
 After we detect a peak (the moment a leg begins to reach down), we assume the leg stays in contact with the ground for a short period until the movement drops below a set threshold.
-This entire window—from peak to drop—is considered the Contact Phase for that leg.
-When neither leg is in contact (both legs are moving upward in the air), the athlete is in the Air Phase—this is the flight time between steps.
+This entire window, from peak to drop is considered the Contact Phase for that leg.
+When neither leg is in contact (both legs are moving upward in the air), the athlete is in the Air Phase.
 
 - Classification Rules for Each Frame:
  Both legs = 0 → The athlete is in the air (no ground contact).
  One leg = 1 → The athlete is in single-leg contact (one foot on the ground).
- Both legs = 1 → The athlete is in double-leg contact. This usually happens at the start of the race, when both feet push off the blocks.
+ Both legs = 1 → The athlete has both legs on ground. This usually happens at the start of the race, when both feet push off the blocks.
 
 - Why This Matters:
 Breaking the stride into these phases helps us understand how much time the athlete spends on the ground versus in the air. Elite sprinters often have:
-Shorter ground contact time
-Longer air time (efficient stride and lift)
-Very brief or no double-leg contact (except at the start)
+A decreasing contact time (fast and explosive steps)
+An increasing air time (efficient stride and lift)
+Very brief or no double leg contact (except at the start)
 
 This phase analysis is the foundation for calculating advanced metrics like step duration, stride rhythm, and contact efficiency.
 
@@ -73,23 +73,23 @@ Once we know when each foot is in contact or in the air, we can calculate powerf
 #### Key Metrics Explained
 - Step Length
 Measures how far the athlete travels in a single step.
-➤ We calculate this by finding the maximum distance between the two ankles during each air phase—when both feet are off the ground.
+    - We calculate this by finding the maximum distance between the two ankles during each air phase when both feet are off the ground.
 
 - Step Rate (Frequency)
 Measures how quickly the athlete steps.
-➤ This is calculated as the time between alternate foot contacts—for example, from when the left foot lands to when the right foot lands next.
-➤ Step rate is measured in steps per second (Hz).
+    - This is calculated as the time between alternate foot contacts for example, from when the left foot lands to when the right foot lands next.
+    - Step rate is measured in steps per second (Hz).
 
 - Air Time & Ground Contact Time
 Measures how long each foot spends in the air and on the ground.
-➤ We count the number of frames spent in each phase and convert it to seconds using the video frame rate (FPS).
-➤ This gives us precise air and contact durations for every stride.
+    - We count the number of frames spent in each phase and convert it to seconds using the video frame rate (FPS).
+    - This gives us precise air and contact durations for every stride.
 
 - Speed
 Measures how fast the athlete is running.
-➤ Calculated by multiplying step length by step rate:
+  - Calculated by multiplying step length by step rate:
 **Speed = Step Length × Step Rate**
-➤ This gives speed in meters per second (m/s) for each stride.
+   - This gives speed in meters per second (m/s) for each stride.
 
 ---
 
@@ -179,7 +179,7 @@ The main functionality is handled by a class called SkeletonAnalyzerFineTune1.
 To use it:
 
 - Create an instance of the class by passing in your pose data file.
-Call each method step-by-step to preprocess, analyze, visualize, and extract metrics.
+Call each method step by step to preprocess, analyze, visualize, and extract metrics.
 Example:
 analyzer = SkeletonAnalyzerFineTune1("your_pose_data.csv")
 analyzer.load_and_standardize()
@@ -187,8 +187,15 @@ analyzer.rotate_coordinates()
 analyzer.compute_differences()
 ...
 
+### Note on Thresholds
+> **Note:**  
+> The threshold values used for detecting contact and air phases are sensitive to the scale of the video.  
+> If your camera is positioned closer or farther from the athlete compared to the original footage,  
+> you may need to **chnange the thresholds** accordingly to get accurate results.  
+> For example, a close-up video may produce larger leg extension values than a wide-angle shot.
+
 - View Outputs and Visualizations
-The code will produce visual plots, accuracy results, and step-by-step performance metrics for each athlete.
+The code will produce visual plots, accuracy results, and step by step performance metrics for each athlete.
 
 ---
 
