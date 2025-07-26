@@ -171,14 +171,14 @@ Measures how fast the athlete is running.
 
 Follow these simple steps to run the analysis:
 
-- Import the Required Libraries
+- Import the Required Libraries:
 Make sure all necessary Python libraries (like pandas, numpy, matplotlib, plotly, etc.) are imported at the top of your script or notebook.
 
-- Use the Custom Class
+- Use the Custom Class:
 The main functionality is handled by a class called SkeletonAnalyzerFineTune1.
 To use it:
 
-- Create an instance of the class by passing in your pose data file.
+- Create an instance of the class by passing in your pose data file:
 Call each method step by step to preprocess, analyze, visualize, and extract metrics.
 Example:
 analyzer = SkeletonAnalyzerFineTune1("your_pose_data.csv")
@@ -191,10 +191,10 @@ analyzer.compute_differences()
 > **Note:**  
 > The threshold values used for detecting contact and air phases are sensitive to the scale of the video.  
 > If your camera is positioned closer or farther from the athlete compared to the original footage,  
-> you may need to **chnange the thresholds** accordingly to get accurate results.  
+> you may need to **change the thresholds** accordingly to get accurate results.  
 > For example, a close-up video may produce larger leg extension values than a wide-angle shot.
 
-- View Outputs and Visualizations
+- View Outputs and Visualizations:
 The code will produce visual plots, accuracy results, and step by step performance metrics for each athlete.
 
 ---
